@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <table class="table">
+      <thead class="thead-inverse">
+        <tr>
+          <th class="text-center">User ID</th>
+          <th class="text-center">ID</th>
+          <th class="text-center">Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let album of albumArray">
+          <td class="text-center" style="width: 15px;">{{album.userId}}</td>
+          <td class="text-center" style="width: 15px;">{{album.id}}</td>
+          <td class="text-center" style="width: 200px;">{{album.title}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
