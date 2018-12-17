@@ -1,40 +1,42 @@
 <div class="container">
   <div class="row">
-    <form class="col-sm-6 form-inline">
+    <form class="col-sm-6 form-inline mt-3">
       <div class="form-group mx-sm-3 mb-2">
         <input type="text" class="form-control" id="inputSearch" placeholder="Search..." [(ngModel)]="srchAlbm" name="inputSearch">
       </div>
       <button type="submit" class="btn btn-primary mb-2" (click)="displayAlbum()">Search Album</button>
     </form>
-    <div class="form-group col-sm-6">
+    <div class="form-group col-sm-6 mt-3">
       <label>Order by Name:</label>
-      <select class='ml-2 select-option' [(ngModel)]='optionSelected' (ngModelChange)='onOptionsSelected($event)'>
-            <option class='option' *ngFor='let option of options' [value]="option">{{option}}</option>
-        </select>
+      <select class=" ml-2 custom-select w-auto" [(ngModel)]='optionSelected' (ngModelChange)='onOptionsSelected($event)'>    
+        <option class='option' *ngFor='let option of options' [value]="option">{{option}}</option>
+      </select>
     </div>
 
   </div>
 
-  <div [hidden]="!albmFound">
-    <div class="card mt-5" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">Album Found</h5>
-        <p class="card-text">{{ disAlbm }}</p>
-        <a href="#" class="btn btn-primary">Click</a>
+  <div class="row">
+    <div [hidden]="!albmFound">
+      <h5 class="card-title text-center">Album Found</h5>
+      <div class="card mt-5 shadow p-3 mb-5 bg-white rounded" *ngFor="let album of dispAlbm">
+        <div class="card-body d-flex justify-content-between">
+          <p class="font-weight-bold font-italic">{{ album }}</p>
+          <a href="#" class="btn btn-primary">Click</a>
+        </div>
       </div>
     </div>
-
   </div>
 
-  <div [hidden]="albmFound">
-    <div class="card mt-5 shadow p-3 mb-5 bg-white rounded w-auto" *ngFor="let album of albumArray">
-      <div class="card-body d-flex w-100 justify-content-between">
-        <h5 class="card-title">Album Name: </h5>
-        <p class="font-weight-bold font-italic">{{ album.title }}</p>
-        <a href="#" class="btn btn-primary">Click</a>
+  <div class="row">
+    <div [hidden]="albmFound">
+      <div class="card mt-5 shadow p-3 mb-5 bg-white rounded" *ngFor="let album of albumArray">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title">Album Name: </h5>
+          <p class="font-weight-bold font-italic">{{ album.title }}</p>
+          <a href="#" class="btn btn-primary">Click</a>
+        </div>
       </div>
     </div>
-
   </div>
 
   <!-- <div class="row" [hidden]="albmFound">

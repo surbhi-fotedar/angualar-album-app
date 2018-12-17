@@ -12,7 +12,7 @@ export class AlbumComponent implements OnInit {
 
   public albumArray: IAlbum[];
          srchAlbm: string;
-         disAlbm: string;
+         dispAlbm: any[];
          albmFound: boolean;
          options = ['ascending', 'descending'];
          optionSelected: any;
@@ -26,10 +26,15 @@ export class AlbumComponent implements OnInit {
   }
 
   displayAlbum() {
+    this.dispAlbm = [];
     for(let i of this.albumArray) {
-      if(this.srchAlbm == i.title ) {
+      if(i.title.includes(this.srchAlbm)) {
         this.albmFound = true;
-        this.disAlbm = i.title;
+        this.dispAlbm.push(i.title);
+        console.log(this.dispAlbm);
+      }
+      else {
+        console.log('hello');
       }
     }
   }
