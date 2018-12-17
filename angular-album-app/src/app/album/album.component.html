@@ -8,7 +8,7 @@
     </form>
     <div class="form-group col-sm-6">
       <label>Order by Name:</label>
-      <select class='select-option' [(ngModel)]='optionSelected' (ngModelChange)='onOptionsSelected($event)'>
+      <select class='ml-2 select-option' [(ngModel)]='optionSelected' (ngModelChange)='onOptionsSelected($event)'>
             <option class='option' *ngFor='let option of options' [value]="option">{{option}}</option>
         </select>
     </div>
@@ -26,8 +26,29 @@
 
   </div>
 
-  <div class="row" [hidden]="albmFound">
-    <table class="table">
+  <div [hidden]="albmFound">
+    <div class="card mt-5 shadow p-3 mb-5 bg-white rounded w-auto" *ngFor="let album of albumArray">
+      <div class="card-body d-flex w-100 justify-content-between">
+        <h5 class="card-title">Album Name: </h5>
+        <p class="font-weight-bold font-italic">{{ album.title }}</p>
+        <a href="#" class="btn btn-primary">Click</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- <div class="row" [hidden]="albmFound">
+    <ul class="list-group">
+      <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between card" *ngFor="let album of albumArray">
+          <h5 class="mb-1">Album Name</h5>
+
+          <p class="mb-1">{{album.title}}</p>
+        </div>
+
+      </a>
+    </ul>
+     <table class="table">
       <thead class="thead-inverse">
         <tr>
           <th class="text-center">User ID</th>
@@ -42,7 +63,7 @@
           <td class="text-center" style="width: 200px;">{{album.title}}</td>
         </tr>
       </tbody>
-    </table>
-  </div>
+    </table> 
+</div> -->
 
 </div>
