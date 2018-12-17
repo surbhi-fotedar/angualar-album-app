@@ -1,5 +1,32 @@
 <div class="container">
   <div class="row">
+    <form class="col-sm-6 form-inline">
+      <div class="form-group mx-sm-3 mb-2">
+        <input type="text" class="form-control" id="inputSearch" placeholder="Search..." [(ngModel)]="srchAlbm" name="inputSearch">
+      </div>
+      <button type="submit" class="btn btn-primary mb-2" (click)="displayAlbum()">Search Album</button>
+    </form>
+    <div class="form-group col-sm-6">
+      <label>Order by Name:</label>
+      <select class='select-option' [(ngModel)]='optionSelected' (ngModelChange)='onOptionsSelected($event)'>
+            <option class='option' *ngFor='let option of options' [value]="option">{{option}}</option>
+        </select>
+    </div>
+
+  </div>
+
+  <div [hidden]="!albmFound">
+    <div class="card mt-5" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Album Found</h5>
+        <p class="card-text">{{ disAlbm }}</p>
+        <a href="#" class="btn btn-primary">Click</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row" [hidden]="albmFound">
     <table class="table">
       <thead class="thead-inverse">
         <tr>
@@ -17,4 +44,5 @@
       </tbody>
     </table>
   </div>
+
 </div>
