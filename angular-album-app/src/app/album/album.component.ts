@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ApiService } from '../api.service';
-import { IAlbum } from '../ialbum';
+import { IAlbum } from '../interfaces/ialbum';
 
 @Component({
   selector: 'app-album',
@@ -21,8 +21,11 @@ export class AlbumComponent implements OnInit {
 
   getAlbums(): void {
     this.apiService.getAlbums()
-        .subscribe( response => this.albumArray = response,
-        error => console.log('Error ::' + error));
+        .subscribe( (response) => {
+          this.albumArray = response
+        },(error) => {
+          console.error('Unable to get photos: ', error);
+        });
   }
 
   displayAlbum() {
@@ -30,11 +33,12 @@ export class AlbumComponent implements OnInit {
     for(let i of this.albumArray) {
       if(i.title.includes(this.srchAlbm)) {
         this.albmFound = true;
-        this.dispAlbm.push(i.title);
-        console.log(this.dispAlbm);
-      }
-      else {
-        console.log('hello');
+        this.dispAlbm.push(
+          {
+            id: i.id,
+            title: i.title
+          }
+        );
       }
     }
   }

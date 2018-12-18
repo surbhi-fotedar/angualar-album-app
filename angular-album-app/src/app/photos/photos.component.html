@@ -1,0 +1,15 @@
+<div class="container-fluid">
+  <div class="btn btn-link mt-2 mb-2 ">
+    <a [routerLink]="['/albums']">Go Back</a>
+  </div>
+  <div class="row">
+    <div class="col-sm-3" *ngFor="let photo of photos">
+      <div class="card">
+        <img class="card-img-top mx-auto" [src]="photo.thumbnailUrl" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{ photo.title }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
