@@ -14,7 +14,7 @@ export class AlbumComponent implements OnInit {
          srchAlbm: string;
          dispAlbm: any[];
          albmFound: boolean;
-         options = ['ascending', 'descending'];
+         options = ['Ascending', 'Descending' , 'Default'];
          optionSelected: any;
 
   constructor(private apiService: ApiService) { }
@@ -45,7 +45,7 @@ export class AlbumComponent implements OnInit {
 
   onOptionsSelected(event){
     
-    if(event == 'ascending') {
+    if(event == 'Ascending') {
 
       this.albumArray.sort((a, b) =>
        
@@ -54,12 +54,15 @@ export class AlbumComponent implements OnInit {
      ((a.title > b.title) ? 1 : 0
        //default return value (no sorting)
  ));
-    } else {
+    } else if(event == 'Descending') {
+
       this.albumArray.sort((a,b) =>
       (a.title > b.title) ? // sort in descending
       -1:
       ((a.title < b.title) ? 1 : 0
     ));
+    } else {
+      this.getAlbums();
     }
    
    }
