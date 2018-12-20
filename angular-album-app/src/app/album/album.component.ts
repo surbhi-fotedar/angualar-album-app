@@ -28,20 +28,20 @@ export class AlbumComponent implements OnInit {
         });
   }
 
-  displayAlbum() {
+  displayAlbum(): void {
     this.dispAlbm = [];
     for(let i of this.albumArray) {
-      if(i.title.includes(this.srchAlbm)) {
-        this.albmFound = true;
-        this.dispAlbm.push(
-          {
-            id: i.id,
-            title: i.title
-          }
-        );
-      }
-    }
-  }
+           if(i.title.includes(this.srchAlbm)) {
+            this.albmFound = true;
+              this.dispAlbm.push(
+               {
+                 id: i.id,
+                 title: i.title
+               }
+             );
+           }
+         }
+     }
 
   onOptionsSelected(event){
     

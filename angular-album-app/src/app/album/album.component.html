@@ -2,9 +2,10 @@
   <div class="row">
     <form class="col-sm-6 form-inline mt-3">
       <div class="form-group mx-sm-3 mb-2">
-        <input type="text" class="form-control" id="inputSearch" placeholder="Search..." [(ngModel)]="srchAlbm" name="inputSearch">
+        <input type="text" class="form-control" id="inputSearch" placeholder="Search..." (keyup)="displayAlbum()" [(ngModel)]="srchAlbm" name="inputSearch">
       </div>
-      <button type="submit" class="btn btn-primary mb-2" (click)="displayAlbum()">Search Album</button>
+
+      <!-- <button type="submit" class="btn btn-primary mb-2" (click)="displayAlbum()">Search Album</button> -->
     </form>
     <div class="form-group col-sm-6 mt-3">
       <label>Order by Name:</label>
@@ -16,13 +17,19 @@
   </div>
 
   <div class="row">
-    <div [hidden]="!albmFound">
-      <app-search-album [dispAlbm]="dispAlbm"></app-search-album>
+    <!-- <div [hidden]="!albmFound"> -->
+    <div *ngIf="srchAlbm?.length > 0 else noSearch">
+      <div *ngIf="dispAlbm?.length > 0 else notFound">
+        <app-search-album [dispAlbm]="dispAlbm"></app-search-album>
+      </div>
+      <ng-template #notFound>
+        <h2 class="text-uppercase font-italic mt-5"> No Album Found </h2>
+      </ng-template>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-sm-3" [hidden]="albmFound" *ngFor="let album of albumArray">
+  <ng-template class="row" #noSearch>
+    <div class="col-sm-3" *ngFor="let album of albumArray">
       <div class="card shadow bg-white rounded mb-2">
         <div class="card-body">
           <h5 class="card-title">
@@ -31,5 +38,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </ng-template>
 </div>

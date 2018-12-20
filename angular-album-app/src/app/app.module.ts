@@ -10,6 +10,7 @@ import { SearchAlbumComponent } from './search-album/search-album.component';
 import { PhotosComponent } from './photos/photos.component';
 import { LimitName } from './pipe/limitName.pipe';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,6 +18,7 @@ import { LimitName } from './pipe/limitName.pipe';
     SearchAlbumComponent,
     PhotosComponent,
     LimitName
+   
   ],
   imports: [
     BrowserModule,
