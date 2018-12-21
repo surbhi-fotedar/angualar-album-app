@@ -13,9 +13,9 @@ export class AlbumComponent implements OnInit {
   public albumArray: IAlbum[];
          srchAlbm: string;
          dispAlbm: any[];
-         albmFound: boolean;
          options = ['Ascending', 'Descending' , 'Default'];
          optionSelected: any;
+         temp: string = "hello everyone";
 
   constructor(private apiService: ApiService) { }
 
@@ -32,7 +32,6 @@ export class AlbumComponent implements OnInit {
     this.dispAlbm = [];
     for(let i of this.albumArray) {
            if(i.title.includes(this.srchAlbm)) {
-            this.albmFound = true;
               this.dispAlbm.push(
                {
                  id: i.id,
@@ -65,6 +64,10 @@ export class AlbumComponent implements OnInit {
       this.getAlbums();
     }
    
+   }
+
+   fireEvent(e){
+     console.log(e.type);
    }
 
   ngOnInit(): void {

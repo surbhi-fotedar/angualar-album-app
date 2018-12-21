@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { AlbumComponent } from './album/album.component';
@@ -24,7 +25,8 @@ import { LimitName } from './pipe/limitName.pipe';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbPopoverModule
   ],
   providers: [],
   bootstrap: [AppComponent]
