@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ApiService } from '../api.service';
 import { IAlbum } from '../interfaces/ialbum';
+import { IPhotos } from '../interfaces/photos.model';
 
 @Component({
   selector: 'app-album',
@@ -11,67 +12,90 @@ import { IAlbum } from '../interfaces/ialbum';
 export class AlbumComponent implements OnInit {
 
   public albumArray: IAlbum[];
-         srchAlbm: string;
-         dispAlbm: any[];
-         options = ['Ascending', 'Descending' , 'Default'];
-         optionSelected: any;
-         temp: string = "hello everyone";
+  photos: IPhotos[];
+
+  srchAlbm: string;
+  dispAlbm: any[];
+  options = ['Ascending', 'Descending', 'Default'];
+  optionSelected: any;
+  temp: any[];
 
   constructor(private apiService: ApiService) { }
 
   getAlbums(): void {
     this.apiService.getAlbums()
-        .subscribe( (response) => {
-          this.albumArray = response
-        },(error) => {
-          console.error('Unable to get photos: ', error);
+      .subscribe((response) => {
+        debugger
+        this.albumArray = response;
+        this.albumArray.forEach((album) => {
+          this.apiService.getPhotosOfAlbum(album.id)
+            .subscribe((photos) => {
+              album.photoCount =  photos.length;
+            }, (error) => {
+              album.photoCount =  null;
+            });
         });
+
+      }, (error) => {
+        console.error('Unable to get photos: ', error);
+      });
+
   }
+
+  // getPhotosCount(id:number): number {
+  //   // for(let i of this.albumArray) {
+  //     this.apiService.getPhotosOfAlbum(id)
+  //         .subscribe ( (photos) => {
+  //           this.photos = photos;
+  //         },(error) => {
+
+  //         }); 
+  //   return this.photos ? this.photos.length : null;           
+
+  //   // }
+  // }
 
   displayAlbum(): void {
     this.dispAlbm = [];
-    for(let i of this.albumArray) {
-           if(i.title.includes(this.srchAlbm)) {
-              this.dispAlbm.push(
-               {
-                 id: i.id,
-                 title: i.title
-               }
-             );
-           }
-         }
-     }
+    for (let i of this.albumArray) {
+      if (i.title.includes(this.srchAlbm)) {
+        this.dispAlbm.push(
+          {
+            id: i.id,
+            title: i.title
+          }
+        );
+      }
+    }
+  }
 
-  onOptionsSelected(event){
-    
-    if(event == 'Ascending') {
+  onOptionsSelected(event) {
+
+    if (event == 'Ascending') {
 
       this.albumArray.sort((a, b) =>
-       
-      (a.title < b.title) ?  //sort string ascending
-       -1 :
-     ((a.title > b.title) ? 1 : 0
-       //default return value (no sorting)
- ));
-    } else if(event == 'Descending') {
 
-      this.albumArray.sort((a,b) =>
-      (a.title > b.title) ? // sort in descending
-      -1:
-      ((a.title < b.title) ? 1 : 0
-    ));
+        (a.title < b.title) ?  //sort string ascending
+          -1 :
+          ((a.title > b.title) ? 1 : 0
+            //default return value (no sorting)
+          ));
+    } else if (event == 'Descending') {
+
+      this.albumArray.sort((a, b) =>
+        (a.title > b.title) ? // sort in descending
+          -1 :
+          ((a.title < b.title) ? 1 : 0
+          ));
     } else {
       this.getAlbums();
     }
-   
-   }
 
-   fireEvent(e){
-     console.log(e.type);
-   }
+  }
+
 
   ngOnInit(): void {
     this.getAlbums();
-}
+  }
 
 }

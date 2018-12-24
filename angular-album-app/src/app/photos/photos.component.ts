@@ -18,9 +18,10 @@ export class PhotosComponent implements OnInit {
     let albumId: string = this.route.snapshot.paramMap.get('albumId'); 
     this.apiService.getPhotosOfAlbum(albumId).subscribe((photos) => {
       this.photos = photos;
-    }, (error) => {
+      }, (error) => {
       console.error('Unable to get photos: ', error);
     })
+    
   }
 
 }

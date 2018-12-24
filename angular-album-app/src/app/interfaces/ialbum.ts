@@ -1,5 +1,6 @@
 export interface IAlbum {
   userId: number,
     id: number,
-    title: string
+    title: string,
+    photoCount: number,
 }

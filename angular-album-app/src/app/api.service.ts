@@ -18,7 +18,7 @@ export class ApiService {
     return this.http.get<IAlbum[]>(this._albumURL);
   }
 
-  getPhotosOfAlbum(albumId) {
+  getPhotosOfAlbum(albumId): Observable<IPhotos[]> {
     let url = 'https://jsonplaceholder.typicode.com/albums/' + albumId + '/photos';
     return this.http.get<IPhotos[]>(url);
   }
