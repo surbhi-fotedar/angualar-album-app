@@ -25,13 +25,13 @@ export class AlbumComponent implements OnInit {
   getAlbums(): void {
     this.apiService.getAlbums()
       .subscribe((response) => {
-        debugger
         this.albumArray = response;
         this.albumArray.forEach((album) => {
           this.apiService.getPhotosOfAlbum(album.id)
             .subscribe((photos) => {
               album.photoCount =  photos.length;
             }, (error) => {
+              console.error('Unable to get photo count: ', error);
               album.photoCount =  null;
             });
         });
@@ -41,19 +41,6 @@ export class AlbumComponent implements OnInit {
       });
 
   }
-
-  // getPhotosCount(id:number): number {
-  //   // for(let i of this.albumArray) {
-  //     this.apiService.getPhotosOfAlbum(id)
-  //         .subscribe ( (photos) => {
-  //           this.photos = photos;
-  //         },(error) => {
-
-  //         }); 
-  //   return this.photos ? this.photos.length : null;           
-
-  //   // }
-  // }
 
   displayAlbum(): void {
     this.dispAlbm = [];
