@@ -49,7 +49,8 @@ export class AlbumComponent implements OnInit {
         this.dispAlbm.push(
           {
             id: i.id,
-            title: i.title
+            title: i.title,
+            photoCount: i.photoCount
           }
         );
       }

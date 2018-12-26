@@ -1,9 +1,10 @@
 <div class="row">
   <div class="col-sm-3" *ngFor="let album of dispAlbm">
     <div class="card shadow bg-white rounded mb-2">
-      <div class="card-body">
-        <h5 class="card-title">
-          <a [routerLink]="['/albums/' + album.id]">{{ album.title | limitName: 35 }}</a>
+      <div class="card-body text-center">
+        <h5 class="card-title" [ngbPopover]="album.title.length > 35 ? album.title : null" triggers="mouseenter:mouseleave">
+          {{ album.title | limitName: 35 }}
+          <a [routerLink]="['/albums/' + album.id]">({{ album.photoCount }})</a>
         </h5>
       </div>
     </div>

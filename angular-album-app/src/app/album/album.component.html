@@ -35,7 +35,7 @@
           <h5 class="card-title" [ngbPopover]="album.title.length > 35 ? album.title : null" triggers="mouseenter:mouseleave">
             <p>{{ album.title | limitName: 35 }}</p>
             <div>
-              <a [routerLink]="['/albums/' + album.id]">{{ album.photoCount }}</a>
+              <a [routerLink]="['/albums/' + album.id]">({{ album.photoCount }})</a>
             </div>
           </h5>
         </div>

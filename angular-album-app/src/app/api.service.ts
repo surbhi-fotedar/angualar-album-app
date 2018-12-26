@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { IAlbum } from './interfaces/ialbum';
 import { IPhotos } from './interfaces/photos.model';
+import { IUsers } from './interfaces/users.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,10 @@ export class ApiService {
   getPhotosOfAlbum(albumId): Observable<IPhotos[]> {
     let url = 'https://jsonplaceholder.typicode.com/albums/' + albumId + '/photos';
     return this.http.get<IPhotos[]>(url);
+  }
+
+  getUserOfAlbum(userId): Observable<IUsers[]> {
+    let url = 'https://jsonplaceholder.typicode.com/users/' + userId + '/albums';
+    return this.http.get<IUsers[]>(url);
   }
 }
