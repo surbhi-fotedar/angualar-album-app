@@ -5,6 +5,7 @@ import { ApiService } from '../api.service';
 import { IPhotos } from '../interfaces/photos.model';
 import { IUsers } from '../interfaces/users.model';
 import { error } from 'util';
+import { IAlbum } from '../interfaces/ialbum';
 
 @Component({
   selector: 'app-photos',
@@ -13,7 +14,8 @@ import { error } from 'util';
 })
 export class PhotosComponent implements OnInit {
   photos: IPhotos[];
-  users: IUsers[];
+  users: IUsers;
+  albums: IAlbum;
 
   constructor(private route: ActivatedRoute, private apiService: ApiService) { }
 
@@ -27,21 +29,25 @@ export class PhotosComponent implements OnInit {
       console.error('Unable to get photos: ', error);
     });
 
-    this.apiService.getAlbums()
-    .subscribe((response) => {
-      response = response;
-      response.forEach((album) => {
-        this.apiService.getUserOfAlbum(album.id)
-          .subscribe((users) => {
-            this.users = users;
-            console.log(this.users);
-          },(error) => {
-            console.error('Unable to get Users: ', error);
+   
+        this.apiService.getUserIdOfAlbum(albumId)
+          .subscribe((albums) => {
+            this.albums = albums;
+            console.log(this.albums);
+              this.apiService.getUserOfAlbum(this.albums.userId)
+                .subscribe((user) => {
+                  this.users = user;
+                  console.log(this.users);
+                },(error) => {
+                  console.log('Unable to get User Data: ',error);
+                });
+            });
+            // 
+          (error) => {
+            console.error('Unable to get Album data: ', error);
             this.users =  null;
-          });
-      });
-    });
-    
+          };
+
   }
 
 }

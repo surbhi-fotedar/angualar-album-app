@@ -26,6 +26,7 @@ export class AlbumComponent implements OnInit {
     this.apiService.getAlbums()
       .subscribe((response) => {
         this.albumArray = response;
+        
         this.albumArray.forEach((album) => {
           this.apiService.getPhotosOfAlbum(album.id)
             .subscribe((photos) => {
