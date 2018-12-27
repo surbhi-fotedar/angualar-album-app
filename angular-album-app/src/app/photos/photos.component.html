@@ -2,7 +2,7 @@
   <div class="btn btn-link mt-2 mb-2 ">
     <a [routerLink]="['/albums']">Go Back to Albums</a>
   </div>
-  <div class="card mb-2 displayUser">
+  <div *ngIf="users" class="card mb-2 displayUser">
     <div class="card-body">
       <p class="font-weight-bold">Name of the User: {{ users.name }} </p>
       <p class="font-weight-bold font-italic">Username of User: {{ users.username}}</p>
