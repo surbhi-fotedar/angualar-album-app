@@ -59,6 +59,7 @@ export class AlbumComponent implements OnInit {
   }
 
   onOptionsSelected(event) {
+    console.log(event);
 
     if (event == 'Ascending') {
 

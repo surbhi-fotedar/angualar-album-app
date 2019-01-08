@@ -4,13 +4,12 @@
   </div>
   <div *ngIf="users" class="card mb-2 displayUser">
     <div class="card-body">
-      <p class="font-weight-bold">Name of the User: {{ users.name }} </p>
-      <p class="font-weight-bold font-italic">Username of User: {{ users.username}}</p>
+      <p class="font-weight-bold">{{ users.name }} <span class="font-italic">({{ users.username}})</span></p>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-3" *ngFor="let photo of photos">
-      <div class="card">
+      <div class="card" (click)="openVerticallyCentered(content)">
         <img class="card-img-top mx-auto" [src]="photo.thumbnailUrl" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">{{ photo.title }}</h5>
@@ -18,4 +17,34 @@
       </div>
     </div>
   </div>
+
+  <ng-template #content let-d="dismiss">
+    <div class="modal-header">
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+    <div class="modal-body">
+      <ngb-carousel>
+        <ng-template ngbSlide *ngFor="let photo of photos">
+          <div>
+            <img [src]="photo.thumbnailUrl" alt="carousel image cap">
+            <div class="carousel-caption">
+              <h3>{{ photo.title }}</h3>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-carousel>
+    </div>
+  </ng-template>
+  <!-- <ngb-carousel *ngIf="">
+    <ng-template ngbSlide>
+      <div *ngFor="let photo of photos">
+        <img [src]="photo.thumbnailUrl" alt="carousel image cap">
+        <div class="carousel-caption">
+          <h3>{{ photo.title }}</h3>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-carousel> -->
 </div>

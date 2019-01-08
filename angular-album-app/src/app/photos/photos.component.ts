@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModalConfig,NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+
 
 import { ApiService } from '../api.service';
 import { IPhotos } from '../interfaces/photos.model';
 import { IUsers } from '../interfaces/users.model';
-import { error } from 'util';
 import { IAlbum } from '../interfaces/ialbum';
 
 @Component({
@@ -17,31 +19,53 @@ export class PhotosComponent implements OnInit {
   users: IUsers;
   albums: IAlbum;
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService) { }
+  // images = [1, 2, 3, 4].map(() => `https://picsum.photos/900/500?random&t=${Math.random()}`);
+
+  constructor(private route: ActivatedRoute, private apiService: ApiService, config: NgbModalConfig, carouselConfig: NgbCarouselConfig, private modalService: NgbModal) {
+    config.backdrop = 'static';
+    config.keyboard = false;
+    carouselConfig.interval = 10000;
+    carouselConfig.wrap = false;
+    carouselConfig.pauseOnHover = false;
+   }
 
   ngOnInit() {
     let albumId: string = this.route.snapshot.paramMap.get('albumId');
-    
+
+    this.getPhotosOfAlbum(albumId);
+    this.getAlbumDetails(albumId);
+ }
+
+  getPhotosOfAlbum(albumId): void {
     this.apiService.getPhotosOfAlbum(albumId).subscribe((photos) => {
       this.photos = photos;
     }, (error) => {
       console.error('Unable to get photos: ', error);
     });
+  }
 
-    this.apiService.getUserIdOfAlbum(albumId)
-      .subscribe((albums) => {
-        this.albums = albums;
-        this.apiService.getUserOfAlbum(this.albums.userId)
-          .subscribe((user) => {
-            this.users = user;
-          }, (error) => {
-            console.log('Unable to get User Data: ', error);
-          });
-      });
-    // 
-    (error) => {
-      console.error('Unable to get Album data: ', error);
-      this.users = null;
-    };
+  getAlbumDetails(albumId): void {
+    this.apiService.getAlbumDetails(albumId)
+    .subscribe((album) => {
+      // this.albums = albums;
+      this.apiService.getUserOfAlbum(album.userId)
+        .subscribe((user) => {
+          this.users = user;
+        }, (error) => {
+          console.log('Unable to get User Data: ', error);
+        });
+    });
+  (error) => {
+    console.error('Unable to get Album data: ', error);
+    this.users = null;
+  };
+  }
+
+  displaySlideshow(id): void {
+    console.log(id);
+  }
+
+  openVerticallyCentered(content) {
+    this.modalService.open(content, { centered: true });
   }
 }
